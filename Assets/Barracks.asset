@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6756e0b2271271c48bf78e43f3dd7254, type: 3}
+  m_Name: Barracks
+  m_EditorClassIdentifier: 
+  buildingName: Barracks
+  buildingDescription: A medival barracks to train soldiers.
+  buildingImage: {fileID: 21300000, guid: 2017a4f60818fdd44bf0cc94be4ed30d, type: 3}
+  hasProduction: 1
+  unit: {fileID: 8793407688873131169, guid: 7fdf7bd00d94ea145b8e3bb44a2caf52, type: 3}
