@@ -1,5 +1,9 @@
-﻿using UnityEngine;
+// Outliner
+using UnityEngine;
 
+/// <summary>
+/// This is a basic script to toggle an outline to make player understand which object is currently selected.
+/// </summary>
 public class Outliner : MonoBehaviour
 {
     [SerializeField] private Material mat;
@@ -7,33 +11,46 @@ public class Outliner : MonoBehaviour
 
     private void Awake()
     {
-        mat = this.GetComponent<SpriteRenderer>().material;
-
+        mat = GetComponent<SpriteRenderer>().material;
         if (bc == null)
         {
-            bc = this.GetComponent<BuildingController>();
+            bc = GetComponent<BuildingController>();
         }
     }
 
-    void EnableOutline()
+    public void EnableOutline(Color color)
     {
         mat.SetFloat("_OutlineEnabled", 1f);
+        mat.SetColor("_SolidOutline", color);
     }
 
-    void DisableOutline()
+    public void DisableOutline()
     {
         mat.SetFloat("_OutlineEnabled", 0f);
     }
 
+    public bool isOutlined()
+    {
+        if (mat.GetFloat("_OutlineEnabled").Equals(0f))
+        {
+            return false;
+        }
+        return true;
+    }
+
     private void OnMouseEnter()
     {
-
-        EnableOutline();
-        
+        if (UIController.instance.selectedObject != base.gameObject)
+        {
+            EnableOutline(Color.white);
+        }
     }
 
     private void OnMouseExit()
     {
-        DisableOutline();
+        if (UIController.instance.selectedObject != base.gameObject)
+        {
+            DisableOutline();
+        }
     }
 }

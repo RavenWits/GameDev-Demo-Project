@@ -1,45 +1,56 @@
-﻿using UnityEngine;
+// GameController
+using UnityEngine;
 using UnityEngine.Tilemaps;
+
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
     public Tilemap map;
-    public Vector2 mousePos, truePos, truePosMobile;
-    private float gridSize = 12f;
+    public Vector2 mousePos, truePos;
+    public float gridSize = 12f;
     public bool buildMode = false;
+    public static bool isPaused;
 
 
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
     }
-    void Start()
+
+    private void Start()
     {
         if (map == null)
         {
-            map = GameObject.FindWithTag(Tags.grass).GetComponent<Tilemap>();
+            map = GameObject.FindWithTag("Grass").GetComponent<Tilemap>();
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if(buildMode || UIController.instance.selectedObject != null)
-        //Get current Mouse Coordinates
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        truePos.x = Mathf.Floor(mousePos.x / gridSize) * gridSize;
-        truePos.y = Mathf.Floor(mousePos.y / gridSize) * gridSize;
-
-        if(Input.touchCount > 0)
+		//Calculates real world grid position based on mouse position only on build mode.
+        if ((buildMode || UIController.instance.selectedObject != null) && !isPaused)
         {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            truePos.x = Mathf.Floor(mousePos.x / gridSize) * gridSize;
+            truePos.y = Mathf.Floor(mousePos.y / gridSize) * gridSize;
+        }
 
-            truePosMobile.x = Mathf.Floor(touch.position.x / gridSize) * gridSize;
-            truePosMobile.y = Mathf.Floor(touch.position.y / gridSize) * gridSize;
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckObject();
         }
     }
 
+	//Checks the clicked Game Object if it is a building or unit makes it currently selected object.
+    private void CheckObject()
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(mousePos, Vector2.zero, float.PositiveInfinity);
+        if (rayHit.collider != null && !rayHit.collider.gameObject.layer.Equals(LayerMask.NameToLayer("Building")) && !rayHit.collider.gameObject.CompareTag("Unit"))
+        {
+            UIController.instance.SelectObject(null);
+        }
+    }
 }

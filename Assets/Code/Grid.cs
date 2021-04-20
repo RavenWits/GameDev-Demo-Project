@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Represent a grid of nodes we can search paths on.
  * Based on code and tutorial by Sebastian Lague (https://www.youtube.com/channel/UCmtyQOKKmrMVaKuRXz02jbQ).
  *   

@@ -1,10 +1,3 @@
-﻿/**
- * Provide simple path-finding algorithm with tile prices support.
- * Based on code and tutorial by Sebastian Lague (https://www.youtube.com/channel/UCmtyQOKKmrMVaKuRXz02jbQ).
- *   
- * Author: Ronen Ness.
- * Since: 2016. 
-*/
 using System.Collections.Generic;
 
 namespace NesScripts.Controls.PathFind
